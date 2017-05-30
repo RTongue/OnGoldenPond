@@ -1,0 +1,15 @@
+{
+  "name": "on-golden-pond",
+  "version": "1.0.0",
+  "description": "Duck Simulator",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Robbyn Tongue",
+  "license": "ISC",
+  "dependencies": {
+    "redux": "^3.6.0"
+  }
+}
