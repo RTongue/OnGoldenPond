@@ -1,6 +1,9 @@
 const readline = require('readline');
+const { yellow, red } = require('chalk');
 const store = require('./store');
-const { newPond,
+const { welcome, goodbye } = require('./utils');
+const { exit,
+        newPond,
         newDuck,
         toggleDuckAdded } = require('./reducer');
 
@@ -9,8 +12,13 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+welcome(rl);
+
 rl.on('line', (input) => {
-  const { pond, duckAdded, ducks } = store.getState();
+  const { pond, duckAdded, ducks, exitCalls } = store.getState();
+
+  if (exitCalls) return;
+
   if (!pond) {
     store.dispatch(newPond(...input.split(' ')));
   } else if (!duckAdded) {
@@ -19,9 +27,20 @@ rl.on('line', (input) => {
   } else {
     const duck = ducks[ducks.length - 1];
     duck.parseInstructions(input);
+
+    const duckPosition = duck.x + ' ' + duck.y + ' ' + duck.directions[duck.orientation];
+
+    if (duck.inPond(pond)) {
+      console.log(yellow(duckPosition));
+    } else {
+      console.log(red('This duck flew away! ' + duckPosition));
+    }
+
     store.dispatch(toggleDuckAdded());
-    console.log(duck.x, duck.y, duck.directions[duck.orientation]);
   }
 });
 
-// TODO: write message on quitting the simulator
+rl.on('SIGINT', () => {
+    store.dispatch(exit());
+    goodbye(rl);
+});

@@ -42,6 +42,13 @@ class Duck {
         break;
     }
   }
+
+  inPond (pond) {
+    return (this.x >= 0
+            && this.y >= 0
+            && this.y <= pond.height
+            && this.x <= pond.width);
+  }
 }
 
 module.exports = Duck;

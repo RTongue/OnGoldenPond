@@ -1,10 +1,11 @@
 const createStore = require('redux').createStore;
-const { reducer, toggleDuckAdded } = require('./reducer');
+const { reducer } = require('./reducer');
 
 const initialState = {
   pond: null,
   ducks: [],
-  duckAdded: false
+  duckAdded: false,
+  exitCalls: 0
 };
 
 const store = createStore(reducer, initialState);
