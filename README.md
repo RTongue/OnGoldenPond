@@ -6,6 +6,7 @@ Make sure you have a current version of Node.js (v^7.0.0) installed.
 
 ```
 git clone https://github.com/RTongue/OnGoldenPond.git
+cd OnGoldenPond
 npm install
 npm start
 ```
